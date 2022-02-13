@@ -1,11 +1,12 @@
 import './App.css';
-import Login from './Component/Login';
+import SignUp from './Component/SignUp';
 import AuthProvider from './Context/AuthContext';
 function App() {  
   return (
     <AuthProvider>
     <div className="App">
-      <Login/>
+      {/* <Login/> */}
+      <SignUp/>
     </div>
     </AuthProvider>
   );
