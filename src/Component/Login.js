@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 const Login = () => {
-  const { handleGoogleSignIn, currentUser, handleGithubSignIn, googleSignOut,logInWithEmailPassword } =
+  const { handleGoogleSignIn, currentUser, handleGithubSignIn, googleSignOut,logInWithEmailPassword,error1 } =
     useAuth();
-    // console.log('current user----', currentUser);
+    // console.log('error----', error1);
   // const { name, photo } = currentUser;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState("");
 
 
-  const handleSubmit =async(e) =>{
-    console.log('enterd');
+  const handleSubmit =(e) =>{
     e.preventDefault();
-    try{
-      setError("")
-      await logInWithEmailPassword(email, password);
-    }catch(error){
-      console.log(error);
-    }
+      logInWithEmailPassword(email, password);
+        setSuccess('You are successfully logged in!'); 
   }
   return (
     <div>
@@ -41,7 +36,9 @@ const Login = () => {
         />
         <button type="submit">Submit Now</button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      
+      {error1 ? <p style={{ color: "red" }}>{error1}</p> :null}
+      {!error1 && success ? <p style={{ color: "green" }}>{success}</p> : null}
       {/* {!name ? (
         <div>
           <button onClick={handleGoogleSignIn}>Login with google</button>

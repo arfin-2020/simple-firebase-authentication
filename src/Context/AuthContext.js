@@ -16,6 +16,7 @@ export const useAuth = () => {
 };
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
+  const [error1, setError] = useState(false);
   const auth = getAuth();
 
   // Google SignIn
@@ -76,12 +77,17 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log(user);
+      const {displayName, email} = userCredential.user;
+      const loggedInUser ={
+        name: displayName,
+        email:email
+      }
+      setError('');
+      setCurrentUser(loggedInUser)
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+       setError('User not found!');
+     
     });
   }
   // Google SignOut function
@@ -102,7 +108,7 @@ const AuthProvider = ({ children }) => {
     handleGithubSignIn,
     googleSignOut,
     signUpWithEmailPassword,
-    logInWithEmailPassword
+    logInWithEmailPassword,error1
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
