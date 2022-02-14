@@ -6,7 +6,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const { signInWithEmailPassword, currentUser,googleSignOut } = useAuth();
+  const { signUpWithEmailPassword, currentUser,googleSignOut } = useAuth();
   const [error, setError] = useState(false);
   const { name } = currentUser;
 
@@ -17,7 +17,7 @@ const SignUp = () => {
     }
     try {
       setError("");
-      await signInWithEmailPassword(username, email, password);
+      await signUpWithEmailPassword(username, email, password);
     } catch (err) {
     //   console.log(err);
       if(err.message === 'Firebase: Error (auth/email-already-in-use).'){

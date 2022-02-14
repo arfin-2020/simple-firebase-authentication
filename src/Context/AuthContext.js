@@ -2,8 +2,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GithubAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup,
+  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup,
   signOut
 } from "firebase/auth";
 import { createContext, useContext, useState } from "react";
@@ -57,7 +56,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // SignUp with name, email , password
-  const signInWithEmailPassword = async (username, email, password) => {
+  const signUpWithEmailPassword = async (username, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
     // update profile
     // await updateProfile(auth.currentUser, {
@@ -71,6 +70,20 @@ const AuthProvider = ({ children }) => {
     };
     setCurrentUser(loggedInUser);
   };
+
+  // LogIn with email & password
+  const logInWithEmailPassword = (email, password) =>{
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
   // Google SignOut function
 
   const googleSignOut = () => {
@@ -88,7 +101,8 @@ const AuthProvider = ({ children }) => {
     handleGoogleSignIn,
     handleGithubSignIn,
     googleSignOut,
-    signInWithEmailPassword,
+    signUpWithEmailPassword,
+    logInWithEmailPassword
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
