@@ -3,17 +3,37 @@ import { useAuth } from "../Context/AuthContext";
 const Login = () => {
   const { handleGoogleSignIn, currentUser, handleGithubSignIn, googleSignOut,logInWithEmailPassword,error1 } =
     useAuth();
+
+    console.log('email----', currentUser.email);
     // console.log('error----', error1);
   // const { name, photo } = currentUser;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState("");
-
-
-  const handleSubmit =(e) =>{
+  // const [error, setError] = useState(false);
+  const handleSubmit =async(e) =>{
     e.preventDefault();
-      logInWithEmailPassword(email, password);
-        setSuccess('You are successfully logged in!'); 
+    try{
+      await logInWithEmailPassword(email, password);
+      setSuccess('You are successfully logged in!'); 
+    }catch(error){
+      console.log('catch---error',error)
+    }
+     
+    // try{
+    //   await logInWithEmailPassword(email, password);
+    //   setSuccess('You are successfully logged in!'); 
+    // }catch(err){
+    //   console.log(err);
+    //  if(err.message === 'Firebase: Error (auth/wrong-password).'){
+    //   setError('Wrong Password!');
+    //  }else{
+    //    setError('User Not Found!')
+    //  }
+      
+    // }
+        
   }
   return (
     <div>

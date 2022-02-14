@@ -73,8 +73,8 @@ const AuthProvider = ({ children }) => {
   };
 
   // LogIn with email & password
-  const logInWithEmailPassword = (email, password) =>{
-    signInWithEmailAndPassword(auth, email, password)
+  const logInWithEmailPassword = async(email, password) =>{
+   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const {displayName, email} = userCredential.user;
@@ -83,12 +83,14 @@ const AuthProvider = ({ children }) => {
         email:email
       }
       setError('');
-      setCurrentUser(loggedInUser)
+      setCurrentUser({...loggedInUser})
     })
     .catch((error) => {
+      console.log('error',error.message)
        setError('User not found!');
      
     });
+    // return signInWithEmailAndPassword(auth, email, password);
   }
   // Google SignOut function
 
