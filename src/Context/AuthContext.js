@@ -59,15 +59,9 @@ const AuthProvider = ({ children }) => {
   // SignUp with name, email , password
   const signUpWithEmailPassword = async (username, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
-    // update profile
-    // await updateProfile(auth.currentUser, {
-    //   displayName: username,
-    // });
-    // const {displayName, email} = auth.currentUser;
     const loggedInUser = {
       name: username,
-      email: email,
-      password: password,
+      email1: email,
     };
     setCurrentUser(loggedInUser);
   };

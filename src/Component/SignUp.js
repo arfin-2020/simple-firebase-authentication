@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from "../Context/AuthContext";
 
 const SignUp = () => {
@@ -8,12 +10,14 @@ const SignUp = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const { signUpWithEmailPassword, currentUser,googleSignOut } = useAuth();
   const [error, setError] = useState(false);
-  const { name } = currentUser;
-
+  const { name,email1 } = currentUser;
+    console.log(name, email1)
+    const notify = () => toast("Wow so easy !");
   const handleSubmit = async e => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      return setError("Your Password and Confirm password is not match!");
+      // return setError("Your Password and Confirm password is not match!");
+      
     }
     try {
       setError("");
@@ -73,12 +77,12 @@ const SignUp = () => {
         <br />
 
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Submit Now</button>
+        <button type="submit" onClick={notify}>Submit Now</button>
       </form>
       { name && (
           <div><h1>wellcome: {name}</h1>
         <button onClick={googleSignOut}>SignOut</button></div>)}
-      
+        <ToastContainer/>
     </>
   );
 };
