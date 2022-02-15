@@ -79,11 +79,11 @@ const AuthProvider = ({ children }) => {
       setError('');
       setCurrentUser({...loggedInUser})
     })
-    .catch((error) => {
-      console.log('error',error.message)
-       setError('User not found!');
+    // .catch((error) => {
+    //   console.log('error',error.message)
+    //    setError('User not found!');
      
-    });
+    // });
     // return signInWithEmailAndPassword(auth, email, password);
   }
   // Google SignOut function

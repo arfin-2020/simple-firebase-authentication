@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useAuth } from "../Context/AuthContext";
 const Login = () => {
   const { handleGoogleSignIn, currentUser, handleGithubSignIn, googleSignOut,logInWithEmailPassword,error1 } =
@@ -16,9 +17,18 @@ const Login = () => {
     e.preventDefault();
     try{
       await logInWithEmailPassword(email, password);
-      setSuccess('You are successfully logged in!'); 
+      // setSuccess('You are successfully logged in!'); 
+      toast.success("Login sucessfull!",{
+        position:"top-right",
+        icon:"🚀",
+        theme: "dark"
+      });
     }catch(error){
-      console.log('catch---error',error)
+      // console.log('catch---error',error)
+      toast.error("User not found!",{
+        position:"top-right",
+        theme: "dark"
+      });
     }
      
     // try{
@@ -57,8 +67,8 @@ const Login = () => {
         <button type="submit">Submit Now</button>
       </form>
       
-      {error1 ? <p style={{ color: "red" }}>{error1}</p> :null}
-      {!error1 && success ? <p style={{ color: "green" }}>{success}</p> : null}
+      {/* {error1 ? <p style={{ color: "red" }}>{error1}</p> :null} */}
+      {/* {!error1 && success ? <p style={{ color: "green" }}>{success}</p> : null} */}
       {/* {!name ? (
         <div>
           <button onClick={handleGoogleSignIn}>Login with google</button>
