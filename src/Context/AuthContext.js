@@ -2,7 +2,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GithubAuthProvider,
-  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup,
+  GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup,
   signOut
 } from "firebase/auth";
 import { createContext, useContext, useState } from "react";
@@ -66,6 +66,28 @@ const AuthProvider = ({ children }) => {
     setCurrentUser(loggedInUser);
   };
 
+  // VerifyEmail
+  const emailVerification = () =>{
+    sendEmailVerification(auth.currentUser)
+  .then(() => {
+    console.log('Email verification sent!')
+    
+  });
+  }
+  // Reset Password
+  const resetPassword = (email) =>{
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+      
+      console.log("Password reset email sent!");
+    })
+    .catch((error) => {
+      
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      
+    });
+  }
   // LogIn with email & password
   const logInWithEmailPassword = async(email, password) =>{
    return signInWithEmailAndPassword(auth, email, password)
@@ -104,7 +126,10 @@ const AuthProvider = ({ children }) => {
     handleGithubSignIn,
     googleSignOut,
     signUpWithEmailPassword,
-    logInWithEmailPassword,error1
+    logInWithEmailPassword,
+    error1,
+    emailVerification,
+    resetPassword
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

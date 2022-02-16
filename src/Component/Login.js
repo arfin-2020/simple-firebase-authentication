@@ -12,7 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState("");
-  // const [error, setError] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const handleSubmit =async(e) =>{
     e.preventDefault();
     try{
@@ -47,6 +47,7 @@ const Login = () => {
   }
   return (
     <div>
+    <h1>{loggedIn ? "Login" : "Register"} </h1>
     <form onSubmit={handleSubmit}>
       <input
           type="text"
@@ -64,6 +65,10 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)}
           required
         />
+
+        <br/><br/>
+        <input type='checkbox' onClick={(e)=>setLoggedIn(e.target.checked)}/> log in
+        <br/><br/>
         <button type="submit">Submit Now</button>
       </form>
       
