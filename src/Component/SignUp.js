@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-
 import { useAuth } from "../Context/AuthContext";
+
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -15,6 +15,14 @@ const SignUp = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      if (password !== confirmPassword) {
+        // return setError("Your Password and Confirm password is not match!");
+        return toast.warning("Your Password and Confirm password is not match!", {
+          position: "top-right",
+          // icon:"🚀",
+          theme: "dark"
+        });
+      }
       await signUpWithEmailPassword(username, email, password);
       toast.success("Sign up sucessfull!", {
         position: "top-right",
@@ -24,18 +32,11 @@ const SignUp = () => {
     } catch (err) {
         console.log(err);
         const  validateEmail = (email)=> {
-          var re = /\S+@\S+\.\S+/;
+          let re = /\S+@\S+\.\S+/;
           return re.test(email);
       }
-      if (password !== confirmPassword) {
-        // return setError("Your Password and Confirm password is not match!");
-        return toast.warning("Your Password and Confirm password is not match!", {
-          position: "top-right",
-          // icon:"🚀",
-          theme: "dark"
-        });
-      }
-      else if (err.message === 'Firebase: Error (auth/email-already-in-use).') {
+      
+       if (err.message === 'Firebase: Error (auth/email-already-in-use).') {
         // setError('This Email Already used');
         toast.warning("This Email Already used!", {
           position: "top-right",
