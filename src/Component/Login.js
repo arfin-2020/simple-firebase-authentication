@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../Context/AuthContext";
+
+
 const Login = () => {
   const { handleGoogleSignIn, currentUser, handleGithubSignIn, googleSignOut,logInWithEmailPassword,error1 } =
     useAuth();
 
     console.log('email----', currentUser.email);
     // console.log('error----', error1);
-  // const { name, photo } = currentUser;
+  const { name, photo } = currentUser;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,7 +50,7 @@ const Login = () => {
   return (
     <div>
     <h1>{loggedIn ? "Login" : "Register"} </h1>
-    <form onSubmit={handleSubmit}>
+    {/* <form onSubmit={handleSubmit}>
       <input
           type="text"
           placeholder="Enter email"
@@ -70,11 +72,12 @@ const Login = () => {
         <input type='checkbox' onClick={(e)=>setLoggedIn(e.target.checked)}/> log in
         <br/><br/>
         <button type="submit">Submit Now</button>
-      </form>
+      </form> */}
       
       {/* {error1 ? <p style={{ color: "red" }}>{error1}</p> :null} */}
       {/* {!error1 && success ? <p style={{ color: "green" }}>{success}</p> : null} */}
-      {/* {!name ? (
+
+      {!photo ? (
         <div>
           <button onClick={handleGoogleSignIn}>Login with google</button>
           <button onClick={handleGithubSignIn}>Login with Github</button>
@@ -89,7 +92,7 @@ const Login = () => {
           <h1>{name}</h1>
           <img src={photo} alt="" />
         </div>
-      ) : null} */}
+      ) : null}
 
       
     </div>

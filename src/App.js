@@ -2,6 +2,7 @@
 
 import { ToastContainer } from 'react-toastify';
 import './App.css';
+import Login from './Component/Login';
 import SignUp from './Component/SignUp';
 import AuthProvider from './Context/AuthContext';
 function App() {  
@@ -10,8 +11,8 @@ function App() {
     
     <AuthProvider>
     <div className="App">
-      {/* <Login/> */}
-      <SignUp/>
+      <Login/>
+      {/* <SignUp/> */}
     </div>
     </AuthProvider>
     <ToastContainer />

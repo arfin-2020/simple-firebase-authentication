@@ -11,7 +11,7 @@ const SignUp = () => {
   // const [error, setError] = useState(false);
   const { name, email1 } = currentUser;
   console.log(name, email1);
-  console.log(password, confirmPassword);
+  // console.log(password, confirmPassword);
 
   
   const handleSubmit = async e => {

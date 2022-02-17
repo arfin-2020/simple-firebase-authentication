@@ -3,7 +3,7 @@ import {
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup,
-  signOut
+  signOut,updateProfile 
 } from "firebase/auth";
 import { createContext, useContext, useState } from "react";
 import "../Firebase/Firebase.config";
@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
           email: email,
           photo: photoURL,
         };
-        // console.log('user details--------', loggedInUser);
+        console.log('user details--------', loggedInUser);
         setCurrentUser(loggedInUser);
       })
       .catch(error => {
@@ -50,6 +50,7 @@ const AuthProvider = ({ children }) => {
           photo: photoURL,
         };
         setCurrentUser(loggedInUser);
+        console.log('user details--------', loggedInUser);
       })
       .catch(error => {
         console.log("error-------", error.message);
@@ -58,14 +59,21 @@ const AuthProvider = ({ children }) => {
 
   // SignUp with name, email , password
   const signUpWithEmailPassword = async (username, email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password)
+    //update profile
+    await updateProfile(auth.currentUser, {
+      displayName: username,
+    });
+    // const user = auth.currentUser;
+    const { displayName} = auth.currentUser;
+    // console.log(user)
     const loggedInUser = {
-      name: username,
+      name: displayName,
       email1: email,
     };
     setCurrentUser(loggedInUser);
   };
-
+  
   // VerifyEmail
   const emailVerification = () =>{
     sendEmailVerification(auth.currentUser)
