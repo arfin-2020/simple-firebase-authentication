@@ -75,18 +75,12 @@ const AuthProvider = ({ children }) => {
   });
   }
   // Reset Password
-  const resetPassword = (email) =>{
-    sendPasswordResetEmail(auth, email)
+  const resetPassword = async(email) =>{
+  await sendPasswordResetEmail(auth, email)
     .then(() => {
-      
       console.log("Password reset email sent!");
     })
-    .catch((error) => {
-      
-      const errorMessage = error.message;
-      console.log(errorMessage);
-      
-    });
+    
   }
   // LogIn with email & password
   const logInWithEmailPassword = async(email, password) =>{

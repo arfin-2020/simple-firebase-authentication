@@ -12,6 +12,8 @@ const SignUp = () => {
   const { name, email1 } = currentUser;
   console.log(name, email1);
   console.log(password, confirmPassword);
+
+  
   const handleSubmit = async e => {
     
     e.preventDefault();
@@ -60,7 +62,7 @@ const SignUp = () => {
     
       await signUpWithEmailPassword(username, email, password);
       emailVerification();
-      toast.success("Sign up sucessfull!", {
+      toast.success("Sign up sucessfull & check your mail for verify!", {
         position: "top-right",
         icon: "🚀",
         theme: "dark",
@@ -95,6 +97,19 @@ const SignUp = () => {
       }
     }
   };
+  const resetPasswordToEmail = async(email) =>{
+    try{
+      await resetPassword(email);
+      toast.info("Please Check your mail", {
+        position: "top-right",
+        // icon:"🚀",
+        theme: "dark",
+      });
+    }catch(err){
+     console.log(err);
+     
+    }
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -158,16 +173,17 @@ const SignUp = () => {
 
         <button type="submit" className="btn btn-primary">
           Sign in
-        </button>
+        </button><br/><br/>
       </form>
+      <button onClick={()=>resetPasswordToEmail(email)}>Reset Password</button>
       {name && (
         <div>
           <h1>wellcome: {name}</h1>
-          <button onClick={googleSignOut}>SignOut</button>
+          <button onClick={googleSignOut}>SignOut</button><br/>
           
         </div>
       )}
-      <button onClick={resetPassword(email)}>Reset Password</button>
+      
     </>
   );
 };
